@@ -1,14 +1,48 @@
-# Backend
+# ---------------------------
+# Visual Studio
+# ---------------------------
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.pdb
+*.cache
+*.log
+
+# ---------------------------
+# .NET
+# ---------------------------
 bin/
 obj/
-*.user
-*.suo
+TestResults/
+*.dll
+*.exe
+*.db
+*.db-shm
+*.db-wal
 
-# Frontend
+# ---------------------------
+# Node / Angular
+# ---------------------------
 node_modules/
 dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
 
-# Common
-.env
+# ---------------------------
+# IDE / Editors
+# ---------------------------
 .vscode/
+*.code-workspace
 .idea/
+*.iml
+
+# ---------------------------
+# System
+# ---------------------------
+.DS_Store
+Thumbs.db

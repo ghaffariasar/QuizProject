@@ -109,8 +109,6 @@ namespace QuizProject.Data
         //{
         //    base.OnModelCreating(modelBuilder);
 
-         
-
         //    modelBuilder.Entity<Question>().HasData(questions);
         //    modelBuilder.Entity<Answer>().HasData(answers);
         //}
