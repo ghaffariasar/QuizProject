@@ -1,159 +1,203 @@
-# 🧩 Full-Stack Project with ASP.NET Core 9 & Angular 18
+# 🧩 Full-Stack Quiz Project with ASP.NET Core 9 & Angular 20
 
-This project is a **modern full-stack web application** built with
-**ASP.NET Core 9** as the backend and **Angular 18** as the frontend.\
-It demonstrates a clean architecture, reusable service patterns, and
-responsive UI design with **Angular Material**.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)  
+[![Angular Version](https://img.shields.io/badge/Angular-20-blue.svg)](https://angular.io/)  
+[![.NET Version](https://img.shields.io/badge/.NET-9-green.svg)](https://dotnet.microsoft.com/)  
 
-------------------------------------------------------------------------
+A **full-stack quiz application** built with **ASP.NET Core 9** backend and **Angular 20** frontend, demonstrating clean architecture, reusable **Generic Service** patterns, and responsive UI with **Angular Material**. Includes mock data fallback if API is unavailable.
+
+---
+
+## 📑 Table of Contents
+
+- [Technologies Used](#-technologies-used)  
+- [Key Features](#-key-features)  
+- [Project Structure](#-project-structure)  
+- [How to Run](#-how-to-run)  
+- [Generic Service Pattern](#-generic-service-pattern-angular)  
+- [Screenshots](#-screenshots)  
+- [Future Improvements](#-future-improvements)  
+- [Author](#-author)  
+- [License](#-license)  
+
+---
 
 ## 🚀 Technologies Used
 
 ### Backend
 
--   **ASP.NET Core 9**
--   **C# 12**
--   **Entity Framework Core (In-Memory Database)**
--   **RESTful API Design**
--   **Dependency Injection**
--   **Error Handling Middleware**
+- ASP.NET Core 9
+- C# 12
+- Entity Framework Core (In-Memory Database)
+- RESTful API Design
+- Controllers for Questions, Quizzes, Results
+- Dependency Injection
+- Error Handling Middleware
 
 ### Frontend
 
--   **Angular 18**
--   **TypeScript**
--   **Angular Material**
--   **Reactive Forms**
--   **Generic Service Pattern for API communication**
--   **Responsive UI Layout**
+- Angular 20
+- TypeScript
+- Angular Material
+- Reactive Forms
+- Standalone Components
+- Generic Service Pattern with Mock Data Fallback
+- Responsive UI Layout
+- Dark / Light Theme Toggle
 
-------------------------------------------------------------------------
+---
 
 ## 🧠 Key Features
 
--   Separation of concerns between frontend and backend.
--   Centralized, reusable **Generic Service** in Angular to handle all
-    API requests.
--   Fully responsive design using **Angular Material**.
--   In-memory database for fast testing and demo purposes.
--   Clean folder structure for scalability and readability.
--   Designed primarily for **learning, demonstration, and portfolio**
-    use.
+- Clear separation between frontend and backend
+- Centralized **Generic Service** for API communication
+- Endpoints defined inside services; components never send URLs
+- Mock data fallback if API fails
+- Quiz management: create, update, delete questions & answers
+- Quiz creation: select questions, set duration & expiration
+- Users can take quizzes and see results
+- Result dashboard with top scores
+- Responsive design with Angular Material
+- Clean folder structure for scalability and readability
+- Designed for **learning, demonstration, and portfolio** use
 
-------------------------------------------------------------------------
+---
 
 ## 🗂️ Project Structure
 
-### Backend (`/Server`)
+### Backend (`/Backend`)
 
-    Server/
-    │
-    ├── Controllers/
-    │   └── QuestionsController.cs
-    │
-    ├── Models/
-    │   └── [Question].cs
-    │
-    ├── Data/
-    │   └── AppDbContext.cs
-    │
-    ├── Middleware/
-    │   └── ErrorHandlerMiddleware.cs
-    │
-    └── Program.cs
+```
+Backend/
+│
+├── Controllers/
+│   ├── QuestionsController.cs
+│   ├── QuizzesController.cs
+│   └── ResultsController.cs
+│
+├── Models/
+│   ├── Question.cs
+│   ├── Answer.cs
+│   ├── Quiz.cs
+│   └── Result.cs
+│
+├── Data/
+│   └── QuizContext.cs
+│
+├── Middleware/
+│   └── ErrorHandlerMiddleware.cs
+│
+└── Program.cs
+```
 
-### Frontend (`/Client`)
+### Frontend (`/Frontend`)
 
-    Client/
-    │
-    ├── src/app/
-    │   ├── services/
-    │   │   └── baseService.ts
-    │   ├── components/
-    │   │   ├── [entity]-list/
-    │   │   └── [entity]-form/
-    │   ├── app.module.ts
-    │   ├── app.component.ts
-    │   └── app-routing.module.ts
-    └── package.json
+```
+Frontend/
+│
+├── src/app/
+│   ├── services/
+│   │   ├── generic.service.ts
+│   │   ├── question.service.ts
+│   │   ├── quiz.service.ts
+│   │   └── result.service.ts
+│   │
+│   ├── components/
+│   │   ├── quiz-creation/
+│   │   ├── quiz-list/
+│   │   ├── quiz-take/
+│   │   └── result-dashboard/
+│   │
+│   ├── models/
+│   │   ├── question.model.ts
+│   │   ├── answer.model.ts
+│   │   ├── quiz.model.ts
+│   │   └── result.model.ts
+│   │
+│   ├── app.routes.ts
+│   ├── app.config.ts
+│   └── main.ts
+│
+└── package.json
+```
 
-------------------------------------------------------------------------
+---
 
 ## ⚙️ How to Run
 
-### 1️⃣ Backend (ASP.NET Core)
+### Backend
 
-``` bash
-cd Server
+```bash
+cd Backend
 dotnet run
 ```
 
-Backend will start at: <https://localhost:7068>
+Backend will run at: <https://localhost:7068>
 
-### 2️⃣ Frontend (Angular)
+### Frontend
 
-``` bash
-cd Client
+```bash
+cd Frontend
 npm install
 ng serve
 ```
 
-Frontend will start at: <http://localhost:4200>
+Frontend will run at: <http://localhost:4200>
 
-------------------------------------------------------------------------
+---
 
 ## 🧩 Generic Service Pattern (Angular)
 
-A reusable **GenericService** handles all CRUD operations and API calls,
-reducing boilerplate code and improving maintainability.
+Reusable **GenericService** handles CRUD operations.  
+Endpoints are **defined inside services**, not passed from components.
 
-``` typescript
-export class BaseService<T> {
-  constructor(private http: HttpClient, private apiUrl: string) {}
-
-  getAll(): Observable<T[]> {
-    return this.http.get<T[]>(this.apiUrl);
-  }
-
-  getById(id: number): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}/${id}`);
-  }
-
-  create(item: T): Observable<T> {
-    return this.http.post<T>(this.apiUrl, item);
-  }
-
-  update(id: number, item: T): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, item);
-  }
-
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
-  }
+```typescript
+@Injectable({ providedIn: 'root' })
+export class QuestionService extends GenericService<Question> {
+  protected override endpoint = 'questions';
 }
 ```
 
-------------------------------------------------------------------------
+Usage in components:
+
+```typescript
+this.questionService.getAllWithAnswers().subscribe(questions => {
+  this.questions = questions;
+});
+```
+
+---
+
+## 🖼️ Screenshots
+
+<!-- Replace with your actual screenshots -->
+![Quiz List](./screenshots/quiz-list.png)  
+![Quiz Creation](./screenshots/quiz-creation.png)  
+![Take Quiz](./screenshots/quiz-take.png)  
+![Result Dashboard](./screenshots/result-dashboard.png)  
+
+---
 
 ## 📦 Future Improvements
 
--   Add authentication & authorization (JWT)
--   Integrate a persistent database (SQL Server or PostgreSQL)
--   Implement caching and state management
--   Add lazy loading for better performance
+- Authentication & Authorization (JWT)
+- Persistent Database (SQL Server or PostgreSQL)
+- Caching & State Management
+- Lazy Loading & Performance Optimization
+- Dark / Light Theme Toggle
 
-------------------------------------------------------------------------
+---
 
 ## 🧑‍💻 Author
 
-**Mohammad Ghaffari**\
-Full-Stack Developer \| Software Architect \| System Analyst\
-📧 \[ghaffariasar@gmail.com\]\
-🔗 \[LinkedIn or GitHub Profile\]
+**Mohammad Ghaffari**  
+Full-Stack Developer | Software Architect | System Analyst  
+📧 ghaffariasar@gmail.com  
+🔗 [GitHub](https://github.com/Ghaffariasar)
 
-------------------------------------------------------------------------
+---
 
 ## 📄 License
 
-This project is open source and available under the [MIT
-License](LICENSE).
+This project is open source under the [MIT License](LICENSE).
+
