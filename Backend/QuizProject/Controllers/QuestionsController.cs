@@ -27,6 +27,17 @@ namespace QuizProject.Controllers
             return Ok(questions);
         }
 
+        // GET: api/questions/with-answers
+        [HttpGet("with-answers")]
+        public async Task<IActionResult> GetAllWithAnswers()
+        {
+            var questions = await _context.Questions
+                .Include(q => q.Answers)
+                .ToListAsync();
+
+            return Ok(questions);
+        }
+
         // GET: api/questions/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)

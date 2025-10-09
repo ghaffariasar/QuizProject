@@ -1,0 +1,8 @@
+/* Global styles and simple dark-theme support */
+body { font-family: Roboto, Arial, sans-serif; margin:0; }
+.dark-theme { background: #303030; color: #fff; }
+.container { max-width: 1100px; margin: auto; padding: 16px; }
+.mat-card { margin-bottom: 12px; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,21 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace QuizProject.Models
+{
+    public class Result
+    {
+        public int Id { get; set; }
+
+        [ForeignKey(nameof(Quiz))]
+        public int QuizId { get; set; }
+        public Quiz Quiz { get; set; }
+
+        [Required]
+        public string UserName { get; set; }
+
+        public int Score { get; set; }
+
+        public DateTime TakenAt { get; set; } = DateTime.UtcNow;
+    }
+}

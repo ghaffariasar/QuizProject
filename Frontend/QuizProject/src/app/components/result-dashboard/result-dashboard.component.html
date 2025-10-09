@@ -1,0 +1,8 @@
+<mat-card>
+  <mat-card-title>Results</mat-card-title>
+  <mat-list>
+    <mat-list-item *ngFor="let r of results">
+      Quiz {{ r.quizId }} - {{ r.score }}% - {{ r.passed ? 'Passed' : 'Failed' }} - {{ r.date }}
+    </mat-list-item>
+  </mat-list>
+</mat-card>
