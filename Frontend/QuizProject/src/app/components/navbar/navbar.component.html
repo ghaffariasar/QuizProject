@@ -1,0 +1,8 @@
+<mat-toolbar color="primary">
+  <span>QuizProject</span>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/questions">Manage Questions</button>
+  <button mat-button routerLink="/quizzes">Create Quiz</button>
+  <button mat-button routerLink="/results">Results</button>
+  <mat-slide-toggle [checked]="isDark" (change)="toggleTheme()">Dark</mat-slide-toggle>
+</mat-toolbar>
