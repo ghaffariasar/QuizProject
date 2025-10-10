@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'ویرایش سؤال' : 'افزودن سؤال جدید' }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline" class="fullWidth">
+    <mat-label>متن سؤال</mat-label>
+    <input matInput formControlName="text"/>
+  </mat-form-field>
+
+  <div formArrayName="answers">
+    @for (answer of answers.controls; track $index) {
+    <div [formGroupName]="$index" class="answer-row">
+      <mat-form-field appearance="outline" class="answer-text">
+        <mat-label>گزینه {{ $index + 1 }}</mat-label>
+        
+        <input matInput formControlName="text" />
+      </mat-form-field>
+      <mat-checkbox formControlName="isCorrect">صحیح</mat-checkbox>
+    </div>
+    }
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">انصراف</button>
+  <button mat-flat-button color="primary" (click)="submit()">ذخیره</button>
+</mat-dialog-actions>

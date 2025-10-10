@@ -1,23 +1,60 @@
-<div class="question-list">
-  <mat-card class="question-card">
-    @for (q of questions; track $index) {
-    <mat-card-title>{{ q.text }}</mat-card-title>
-    <mat-list>
-      <mat-list-item>
-        @for(a of q.answers; track $index)
-        {
-          {{ a.text }}
-          @if(a.isCorrect)
-           {
-            <span class="correct"> (Correct)</span>
-           } 
-      }
-      </mat-list-item>
-    </mat-list>
-    <div class="actions">
-      <button mat-stroked-button color="primary" routerLink="/quizzes">Use in Quiz</button>
-      <button mat-raised-button color="warn" (click)="deleteQuestion(q.id)">Delete</button>
-    </div>
-    }
-  </mat-card>
+<div class="toolbar">
+  <div class="title-section">
+    <mat-icon>quiz</mat-icon>
+    <h2>مدیریت سؤالات</h2>
+  </div>
+  <button mat-flat-button color="primary" (click)="addQuestion()">
+    <mat-icon>add_circle</mat-icon>
+    افزودن سؤال جدید
+  </button>
 </div>
+
+@if (isLoading) {
+  <div class="loading-container">
+    <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+    <p>در حال بارگذاری سؤالات...</p>
+  </div>
+} @else if (questions.length > 0) {
+  <div class="question-list">
+    @for (q of questions; track $index) {
+      <mat-card class="question-card">
+        <mat-card-header>
+          <mat-icon mat-card-avatar color="primary">help_outline</mat-icon>
+          <mat-card-title class="rightDir">{{ q.text }}</mat-card-title>
+          <mat-card-subtitle>شناسه سؤال: {{ q.id }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+          <mat-list>
+            @for (a of q.answers; track $index) {
+              <mat-list-item>
+                <mat-icon class="answer-icon" [ngClass]="{ correct: a.isCorrect }">
+                  {{ a.isCorrect ? 'check_circle' : 'radio_button_unchecked' }}
+                </mat-icon>
+                <span class="answer-text" [ngClass]="{ correct: a.isCorrect }">
+                  {{ $index + 1 }}. {{ a.text }}
+                </span>
+              </mat-list-item>
+            }
+          </mat-list>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <button mat-icon-button color="primary" class="action-btn" (click)="editQuestion(q)" matTooltip="ویرایش سؤال">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" class="action-btn" (click)="deleteQuestion(q.id)" matTooltip="حذف سؤال">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+} @else {
+  <div class="empty">
+    <mat-icon>info</mat-icon>
+    <p>هیچ سؤالی ثبت نشده است.</p>
+  </div>
+}

@@ -168,16 +168,6 @@ this.questionService.getAllWithAnswers().subscribe(questions => {
 
 ---
 
-## 🖼️ Screenshots
-
-<!-- Replace with your actual screenshots -->
-![Quiz List](./screenshots/quiz-list.png)  
-![Quiz Creation](./screenshots/quiz-creation.png)  
-![Take Quiz](./screenshots/quiz-take.png)  
-![Result Dashboard](./screenshots/result-dashboard.png)  
-
----
-
 ## 📦 Future Improvements
 
 - Authentication & Authorization (JWT)

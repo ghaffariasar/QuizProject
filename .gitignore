@@ -46,3 +46,8 @@ yarn.lock
 # ---------------------------
 .DS_Store
 Thumbs.db
+
+# Angular / build / cache
+.angular/
+dist/
+out-tsc/

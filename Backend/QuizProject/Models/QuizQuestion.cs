@@ -1,4 +1,6 @@
-﻿namespace QuizProject.Models
+﻿using System.Text.Json.Serialization;
+
+namespace QuizProject.Models
 {
     public class QuizQuestion
     {
@@ -6,6 +8,8 @@
         public Quiz Quiz { get; set; }
 
         public int QuestionId { get; set; }
-        public Question Question { get; set; }
+
+        [JsonIgnore]
+        public Question? Question { get; set; }
     }
 }

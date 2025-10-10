@@ -10,6 +10,7 @@ namespace QuizProject.Controllers
     public class ResultsController : ControllerBase
     {
         private readonly QuizContext _context;
+
         public ResultsController(QuizContext context) => _context = context;
 
         [HttpGet]
@@ -21,7 +22,6 @@ namespace QuizProject.Controllers
             return Ok(results);
         }
 
-        // GET: api/results/top/5
         [HttpGet("top/{limit}")]
         public async Task<IActionResult> GetTop(int limit)
         {
@@ -40,7 +40,9 @@ namespace QuizProject.Controllers
                 .Include(r => r.Quiz)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
-            if (result == null) return NotFound();
+            if (result == null)
+                return NotFound();
+
             return Ok(result);
         }
 

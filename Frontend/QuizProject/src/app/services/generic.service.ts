@@ -28,8 +28,8 @@ export abstract  class GenericService<T> {
     return this.http.post<T>(`${this.apiBase}/${this.endpoint}`, item);
   }
 
-  update(id: number, item: T): Observable<void> {
-    return this.http.put<void>(`${this.apiBase}/${this.endpoint}/${id}`, item);
+  update(id: number, item: T): Observable<T> {
+    return this.http.put<T>(`${this.apiBase}/${this.endpoint}/${id}`, item);
   }
 
   delete(id: number): Observable<void> {

@@ -2,6 +2,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace QuizProject.Models
 {
@@ -17,6 +18,7 @@ namespace QuizProject.Models
         [ForeignKey(nameof(Question))]
         public int QuestionId { get; set; }
 
-        public Question Question { get; set; }
+        [JsonIgnore]
+        public  Question? Question { get; set; }
     }
 }

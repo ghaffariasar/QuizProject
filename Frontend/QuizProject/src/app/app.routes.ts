@@ -6,10 +6,17 @@ import { TakeQuizComponent } from './components/take-quiz/take-quiz.component';
 import { ResultDashboardComponent } from './components/result-dashboard/result-dashboard.component';
 
 
+
 export const routes: Routes = [
   { path: '', redirectTo: 'quizzes', pathMatch: 'full' },
-  { path: 'questions', component: QuestionManagementComponent },
-  { path: 'quizzes', component: QuizCreationComponent },
   { path: 'take-quiz/:id', component: TakeQuizComponent },
-  { path: 'results', component: ResultDashboardComponent }
+  { path: 'results', component: ResultDashboardComponent },
+  {
+    path: 'admin',
+    children: [
+      { path: 'questions', component: QuestionManagementComponent },
+      { path: 'quizzes', component: QuizCreationComponent },
+      { path: '', redirectTo: 'questions', pathMatch: 'full' } // پیش‌فرض مدیریت
+    ]
+  }
 ];

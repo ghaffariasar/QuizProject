@@ -13,7 +13,6 @@ namespace QuizProject.Controllers
 
         public QuizzesController(QuizContext context) => _context = context;
 
-        // GET: api/quizzes
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,7 +23,6 @@ namespace QuizProject.Controllers
             return Ok(quizzes);
         }
 
-        // GET: api/quizzes/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -33,11 +31,12 @@ namespace QuizProject.Controllers
                     .ThenInclude(q => q.Answers)
                 .FirstOrDefaultAsync(q => q.Id == id);
 
-            if (quiz == null) return NotFound();
+            if (quiz == null)
+                return NotFound();
+
             return Ok(quiz);
         }
 
-        // POST: api/quizzes
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Quiz quiz)
         {
@@ -46,23 +45,32 @@ namespace QuizProject.Controllers
             return CreatedAtAction(nameof(GetById), new { id = quiz.Id }, quiz);
         }
 
-        // PUT: api/quizzes/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Quiz quiz)
         {
-            if (id != quiz.Id) return BadRequest();
+            if (id != quiz.Id)
+                return BadRequest();
 
-            _context.Entry(quiz).State = EntityState.Modified;
+            var existingQuiz = await _context.Quizzes
+                .Include(q => q.Questions)
+                    .ThenInclude(q => q.Answers)
+                .FirstOrDefaultAsync(q => q.Id == id);
+
+            if (existingQuiz == null)
+                return NotFound();
+
+            existingQuiz.Title = quiz.Title;
+
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
-        // DELETE: api/quizzes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var quiz = await _context.Quizzes.FindAsync(id);
-            if (quiz == null) return NotFound();
+            if (quiz == null)
+                return NotFound();
 
             _context.Quizzes.Remove(quiz);
             await _context.SaveChangesAsync();
