@@ -1,8 +1,8 @@
 export interface Result {
   id: number;
   quizId: number;
-  userId: string;
+  userName: string;
   score: number;
   passed: boolean;
-  date: string; // ISO string
+  takenAt: string; // ISO string
 }

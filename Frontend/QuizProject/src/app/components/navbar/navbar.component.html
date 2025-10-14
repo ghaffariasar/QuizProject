@@ -4,6 +4,10 @@
   <span class="spacer"></span>
   <button mat-button routerLink="/admin/questions">مدیریت سؤالات</button>
   <button mat-button routerLink="/admin/quizzes">مدیریت آزمون‌ها</button>
+  <button mat-button routerLink="/admin/my-quizzes">آزمون های من</button>
+
   <button mat-button routerLink="/results">نتایج</button>
-  <mat-slide-toggle [checked]="isDark" (change)="toggleTheme()">Dark</mat-slide-toggle>
+  <mat-slide-toggle [checked]="isRtl" (change)="toggleDirection()">RTL</mat-slide-toggle>
 </mat-toolbar>
+
+

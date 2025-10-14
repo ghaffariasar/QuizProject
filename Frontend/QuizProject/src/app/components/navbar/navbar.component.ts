@@ -11,19 +11,17 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  // simple theme switch - persists in localStorage
-  isDark = localStorage.getItem('theme') === 'dark';
+  isRtl = localStorage.getItem('direction') === 'rtl';
 
-  toggleTheme() {
-    this.isDark = !this.isDark;
-    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
-    document.body.classList.toggle('dark-theme', this.isDark);
+  toggleDirection() {
+    this.isRtl = !this.isRtl;
+    let direction =  this.isRtl ? 'rtl' : 'ltr';
+    localStorage.setItem('direction',direction);
+    document.documentElement.setAttribute('dir', direction);
+
   }
 
   constructor() {
-    // apply theme on load
-    if (this.isDark) {
-      document.body.classList.add('dark-theme');
-    }
+    
   }
 }

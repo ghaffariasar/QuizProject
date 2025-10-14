@@ -1,8 +1,46 @@
-<mat-card>
-  <mat-card-title>Results</mat-card-title>
-  <mat-list>
-    <mat-list-item *ngFor="let r of results">
-      Quiz {{ r.quizId }} - {{ r.score }}% - {{ r.passed ? 'Passed' : 'Failed' }} - {{ r.date }}
-    </mat-list-item>
-  </mat-list>
-</mat-card>
+<div class="results-container">
+  <h2 class="title">📊 نتایج آزمون‌ها</h2>
+
+  @if (!results.length) 
+  {
+    <div class="empty-state">
+      <mat-icon class="icon">hourglass_empty</mat-icon>
+      <p>هنوز هیچ نتیجه‌ای ثبت نشده است.</p>
+    </div>
+  } 
+  @else 
+  {
+    <div class="results-grid">
+      @for (r of results; track r.id) {
+        <mat-card class="result-card" [ngClass]="r.passed ? 'passed' : 'failed'">
+          <div class="card-header">
+            <mat-icon class="quiz-icon">{{ r.passed ? 'emoji_events' : 'error_outline' }}</mat-icon>
+            <div>
+              <h3>آزمون شماره {{ r.quizId }}</h3>
+              <span class="date">
+                {{ r.takenAt | date:'yyyy/MM/dd - HH:mm' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="score">
+              <span class="label">نمره:</span>
+              <strong>{{ r.score }}%</strong>
+            </div>
+
+            <div class="status" [ngClass]="r.passed ? 'status-passed' : 'status-failed'">
+              {{ r.passed ? 'قبول شدید ✅' : 'رد شدید ❌' }}
+            </div>
+          </div>
+
+          <mat-progress-bar
+            [color]="r.passed ? 'primary' : 'warn'"
+            mode="determinate"
+            [value]="r.score">
+          </mat-progress-bar>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

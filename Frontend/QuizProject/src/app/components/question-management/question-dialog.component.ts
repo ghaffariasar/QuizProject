@@ -26,12 +26,8 @@ export class QuestionDialogComponent {
   form: FormGroup;
   isEditMode: boolean;
 
-  constructor(
-    private fb: FormBuilder,
-    private questionService: QuestionService,
-    private dialogRef: MatDialogRef<QuestionDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Question | null) 
-    {
+  constructor( private fb: FormBuilder, private questionService: QuestionService, private dialogRef: MatDialogRef<QuestionDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: Question | null) 
+  {
     this.isEditMode = !!data;
     this.form = this.fb.group({
       id: [data?.id || 0],
@@ -48,7 +44,7 @@ export class QuestionDialogComponent {
   }
 
   createAnswerGroup(text = '', isCorrect = false, questionId = 0): FormGroup {
-  //  const question = this.form.value as Question;
+
     return this.fb.group({
       text: [text, Validators.required],
       isCorrect: [isCorrect],
@@ -58,7 +54,6 @@ export class QuestionDialogComponent {
 
   submit(): void 
   {
-    debugger;
     const question = this.form.value as Question;
     const obs = this.isEditMode
       ? this.questionService.update(question.id, question)

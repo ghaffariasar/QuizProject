@@ -1,8 +1,74 @@
-/* Global styles and simple dark-theme support */
-body { font-family: tahoma, Roboto, Arial, sans-serif; margin:0; }
-.dark-theme { background: #303030; color: #fff; }
-.container { max-width: 1100px; margin: auto; padding: 16px; }
-.mat-card { margin-bottom: 12px; }
+.dark-theme {
+    background: #303030;
+    color: #fff;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px;
+}
+
+.mat-card {
+    margin-bottom: 12px;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+html[dir="rtl"] body {
+    direction: rtl;
+    text-align: right;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+html[dir="rtl"] 
+.mat-mdc-card,
+.mat-mdc-button,
+.mat-mdc-form-field,
+.mat-mdc-list-item,
+.mat-mdc-card-header-text,
+.mat-mdc-card-subtitle,
+.mdc-list-item__content span,
+.mdc-label
+
+{
+    font-family: Tahoma, Arial, sans-serif !important;
+}
+
+html[dir="rtl"] 
+.mat-mdc-form-field {
+    text-align: right;
+}
+
+html[dir="rtl"] .mat-mdc-text-field-wrapper {
+    direction: rtl;
+}
+
+
+html[dir="rtl"] 
+mat-card-title ,
+app-question-form-dialog,
+mat-label
+{
+    font-family: Tahoma, Arial, sans-serif !important;
+}
+
+html[dir="rtl"] body,
+button,
+input,
+textarea,
+select,
+mat-card,
+mat-list,
+mat-form-field {
+    font-family: Tahoma, Arial, sans-serif !important;
+}

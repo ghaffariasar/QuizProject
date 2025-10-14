@@ -1,20 +1,48 @@
-<div>
-  @if (quiz) {
- <mat-card>
-    <mat-card-title>{{ quiz.title }}</mat-card-title>
-    <div>Remaining: {{ remainingSeconds }}s</div>
-    <div class="question-block">
-      @for (q of quiz.questions; track $index) 
-      {
-        <h4>{{ q.text }}</h4>
-        <mat-radio-group>
-          <mat-radio-button *ngFor="let a of q.answers" (change)="selectAnswer(q, a.id)">{{ a.text }}</mat-radio-button>
-      </mat-radio-group>
-      }
-     
+@if (quiz) {
+  <mat-card class="quiz-card">
+
+    <!-- بالای کارت: عنوان، تایمر و دکمه پایان -->
+    <div class="quiz-header">
+      <div class="quiz-info">
+        <mat-card-title>{{ quiz.title }}</mat-card-title>
+        <div class="timer">
+          ⏱ زمان باقیمانده: <span class="time-display">{{ displayTime }}</span>
+        </div>
+      </div>
+
+      <button
+        mat-raised-button
+        color="warn"
+        class="end-btn"
+        (click)="submitQuiz()"
+        [disabled]="isSubmitted">
+        پایان آزمون
+      </button>
     </div>
-    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+
+    <!-- نوار پیشرفت -->
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+
+    <!-- نمایش سوالات -->
+    <div class="questions">
+      @for (q of quiz.questions; track $index) {
+        <div class="question-block">
+          <h3>{{ $index + 1 }}. {{ q.text }}</h3>
+    
+          <mat-radio-group [(ngModel)]="answers[q.id]">
+            @for (a of q.answers; track $index) {
+              <mat-radio-button [value]="a.id" class="answer">
+                {{ a.text }}
+              </mat-radio-button>
+            }
+          </mat-radio-group>
+        </div>
+      }
+    </div>
   </mat-card>
-  }
- 
-</div>
+}
+@else {
+  <mat-card>
+    <mat-card-title>در حال بارگذاری آزمون...</mat-card-title>
+  </mat-card>
+}

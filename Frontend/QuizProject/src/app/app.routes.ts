@@ -4,6 +4,7 @@ import { QuestionManagementComponent } from './components/question-management/qu
 import { QuizCreationComponent } from './components/quiz-creation/quiz-creation.component';
 import { TakeQuizComponent } from './components/take-quiz/take-quiz.component';
 import { ResultDashboardComponent } from './components/result-dashboard/result-dashboard.component';
+import { QuizListComponent } from './components/quiz-management/quiz-list.component';
 
 
 
@@ -16,7 +17,10 @@ export const routes: Routes = [
     children: [
       { path: 'questions', component: QuestionManagementComponent },
       { path: 'quizzes', component: QuizCreationComponent },
+      { path: 'my-quizzes', component: QuizListComponent },
+
       { path: '', redirectTo: 'questions', pathMatch: 'full' } // پیش‌فرض مدیریت
     ]
   }
 ];
+

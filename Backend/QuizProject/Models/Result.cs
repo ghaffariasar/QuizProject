@@ -10,7 +10,7 @@ namespace QuizProject.Models
 
         [ForeignKey(nameof(Quiz))]
         public int QuizId { get; set; }
-        
+
         [JsonIgnore]
         public Quiz? Quiz { get; set; }
 
@@ -18,6 +18,8 @@ namespace QuizProject.Models
         public string UserName { get; set; }
 
         public int Score { get; set; }
+
+        public bool Passed { get; set; }
 
         public DateTime TakenAt { get; set; } = DateTime.UtcNow;
     }

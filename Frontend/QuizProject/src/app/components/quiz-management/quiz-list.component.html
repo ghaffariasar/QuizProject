@@ -1,0 +1,56 @@
+<div class="quiz-list-container">
+  <h2 class="title">🧠 فهرست آزمون‌ها</h2>
+
+  @if (isLoading) {
+    <div class="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <p>در حال بارگذاری آزمون‌ها...</p>
+    </div>
+  } 
+  @else if (!quizzes.length) {
+    <div class="empty-state">
+      <mat-icon class="icon">inventory_2</mat-icon>
+      <p>هیچ آزمونی ثبت نشده است.</p>
+    </div>
+  } 
+  @else {
+    <div class="quiz-grid">
+      @for (quiz of quizzes; track quiz.id) {
+        <mat-card class="quiz-card" [ngClass]="{ expired: isExpired(quiz) }">
+          <div class="card-header">
+            <mat-icon class="quiz-icon">quiz</mat-icon>
+            <div>
+              <h3>{{ quiz.title }}</h3>
+              <p class="info">
+                زمان آزمون: {{ quiz.durationMinutes }} دقیقه  
+                <br />
+                تاریخ انقضا: {{ quiz.expirationDate | date:'yyyy/MM/dd' }}
+              </p>
+            </div>
+          </div>
+
+          <mat-card-content>
+            <div class="details">
+              <span class="badge">
+                {{ quiz.questions.length }} سوال
+              </span>
+
+              <span class="status" [ngClass]="isExpired(quiz) ? 'expired' : 'active'">
+                {{ isExpired(quiz) ? 'منقضی شده' : 'فعال' }}
+              </span>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions  align="end">
+            <button mat-raised-button 
+                    color="primary" 
+                    (click)="startQuiz(quiz.id)" 
+                    [disabled]="isExpired(quiz)">
+              شروع آزمون
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

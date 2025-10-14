@@ -1,4 +1,3 @@
-// src/app/services/result.service.ts
 import { Injectable } from '@angular/core';
 import { GenericService } from './generic.service';
 import { Result } from '../models/result.model';

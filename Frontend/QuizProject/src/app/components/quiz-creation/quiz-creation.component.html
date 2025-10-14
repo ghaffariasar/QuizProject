@@ -1,30 +1,72 @@
-<mat-card>
-  <form [formGroup]="form" (ngSubmit)="saveQuiz()">
-    <mat-form-field appearance="outline" class="full">
-      <mat-label>Quiz Title</mat-label>
-      <input matInput formControlName="title" />
-    </mat-form-field>
+<div class="quiz-form-container">
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-icon class="icon">edit_note</mat-icon>
+      <mat-card-title>✏️ ایجاد / ویرایش آزمون</mat-card-title>
+    </mat-card-header>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Duration (minutes)</mat-label>
-      <input matInput type="number" formControlName="durationMinutes" />
-    </mat-form-field>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="saveQuiz()" class="quiz-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full">
+            <mat-label>عنوان آزمون</mat-label>
+            <input matInput formControlName="title" placeholder="مثلاً آزمون ریاضی پایه ۵" />
+          </mat-form-field>
+        </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Expiration Date</mat-label>
-      <input matInput type="datetime-local" formControlName="expirationDate" />
-    </mat-form-field>
+        <div class="form-row two-cols">
+          <mat-form-field appearance="outline">
+            <mat-label>مدت آزمون (دقیقه)</mat-label>
+            <input matInput type="number" formControlName="durationMinutes" min="1" />
+          </mat-form-field>
 
-    <h3>Select Questions</h3>
-    <div class="questions-grid">
-      <mat-card *ngFor="let q of questions" (click)="toggleSelect(q.id)" [class.selected]="selected.includes(q.id)">
-        <mat-card-title>{{ q.text }}</mat-card-title>
-        <mat-list>
-          <mat-list-item *ngFor="let a of q.answers">{{ a.text }}</mat-list-item>
-        </mat-list>
-      </mat-card>
-    </div>
+          <mat-form-field appearance="outline">
+            <mat-label>تاریخ انقضا</mat-label>
+            <input matInput type="datetime-local" formControlName="expirationDate" />
+          </mat-form-field>
+        </div>
 
-    <button mat-raised-button color="primary" type="submit">Save Quiz</button>
-  </form>
-</mat-card>
+        <h3 class="section-title">🧩 انتخاب سوالات</h3>
+
+        @if(isLoading){
+          <div class="loading">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            <p>در حال بارگذاری سوالات...</p>
+          </div>
+        }
+        @else if(!questions.length){
+          <div class="empty-state">
+            <mat-icon>question_mark</mat-icon>
+            <p>هنوز هیچ سوالی ثبت نشده است.</p>
+          </div>
+        }
+        @else{
+          <div class="questions-grid">
+            @for(q of questions; track q.id)
+            {
+              <mat-card class="question-card" [class.selected]="selected.includes(q.id)" (click)="toggleSelect(q.id)" onkeypress="toggleSelect(q.id)" >
+                <mat-card-title>{{ q.text }}</mat-card-title>
+                <mat-card-content>
+                  <ul>
+                    @for(a of q.answers; track a.id){
+                      <li [class.correct]="a.isCorrect">{{ a.text }}</li>
+                    }
+                  </ul>
+                </mat-card-content>
+              </mat-card>
+            }
+          </div>
+        }
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" class="save-btn">
+            💾 ذخیره آزمون
+          </button>
+          <button mat-stroked-button color="accent" type="button" (click)="cancel()">
+            انصراف
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
