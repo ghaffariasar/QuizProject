@@ -103,10 +103,38 @@ Frontend/
 │   │   └── result.service.ts
 │   │
 │   ├── components/
+│   │   ├── navbar/
+│   │   │   ├── navbar.component.html
+│   │   │   ├── navbar.component.scss
+│   │   │   └── navbar.component.ts
+│   │   │
+│   │   ├── question-management/
+│   │   │   ├── question-dialog.component.css
+│   │   │   ├── question-dialog.component.html
+│   │   │   ├── question-dialog.component.ts
+│   │   │   ├── question-management.component.html
+│   │   │   ├── question-management.component.scss
+│   │   │   └── question-management.component.ts
+│   │   │
 │   │   ├── quiz-creation/
-│   │   ├── quiz-list/
-│   │   ├── quiz-take/
-│   │   └── result-dashboard/
+│   │   │   ├── quiz-creation.component.html
+│   │   │   ├── quiz-creation.component.scss
+│   │   │   └── quiz-creation.component.ts
+│   │   │
+│   │   ├── quiz-management/
+│   │   │   ├── quiz-list.component.css
+│   │   │   ├── quiz-list.component.html
+│   │   │   └── quiz-list.component.ts
+│   │   │
+│   │   ├── result-dashboard/
+│   │   │   ├── result-dashboard.component.html
+│   │   │   ├── result-dashboard.component.scss
+│   │   │   └── result-dashboard.component.ts
+│   │   │
+│   │   └── take-quiz/
+│   │       ├── take-quiz.component.html
+│   │       ├── take-quiz.component.scss
+│   │       └── take-quiz.component.ts
 │   │
 │   ├── models/
 │   │   ├── question.model.ts
@@ -119,6 +147,7 @@ Frontend/
 │   └── main.ts
 │
 └── package.json
+
 ```
 
 ---
@@ -128,7 +157,7 @@ Frontend/
 ### Backend
 
 ```bash
-cd Backend
+cd Backend\QuizProject
 dotnet run
 ```
 
@@ -137,7 +166,7 @@ Backend will run at: <https://localhost:7068>
 ### Frontend
 
 ```bash
-cd Frontend
+cd Frontend\QuizProject
 npm install
 ng serve
 ```
